@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     private float lastCritterSpawn = 0;
     public Score scoreDisplay;
     public Timer timer;
+    public SpriteRenderer button;
 
 	// Use this for initialization
 	void Start () {
@@ -41,5 +42,24 @@ public class GameManager : MonoBehaviour {
             //Update most recent spawn time to now
             lastCritterSpawn = Time.time;
         }
+
+        //Update button visibility 
+        if (timer.IsTimerRunning() == true)
+        {
+            button.enabled = false;
+        }
+        else //Game not running
+        {
+            button.enabled = true; 
+        }
 	}
+    //Did they click button?
+    private void OnMouseDown()
+    {
+        if (timer.IsTimerRunning() == false)
+        {
+            timer.StartTimer();
+            scoreDisplay.ResetScore();
+        }
+    }
 }
